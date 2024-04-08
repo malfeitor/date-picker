@@ -5,7 +5,8 @@
   "main": "dist/index.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "tsc"
+    "prepublish": "tsc",
+    "sass": "sass --update --style=compressed src/:dist/"
   },
   "author": "Malfeitor",
   "license": "GPL-3.0",
@@ -21,6 +22,7 @@
   "devDependencies": {
     "@types/react": "^18.2.74",
     "@types/react-dom": "^18.2.24",
+    "sass": "^1.74.1",
     "typescript": "^5.4.4"
   },
   "dependencies": {
