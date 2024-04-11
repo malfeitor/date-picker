@@ -1,4 +1,4 @@
-import React, { Ref, forwardRef, useState } from 'react'
+import React, { Ref, forwardRef, useEffect, useState } from 'react'
 import './index.scss'
 import { Day } from './features/day'
 
@@ -14,13 +14,16 @@ export const DatePicker = forwardRef(function DatePicker(
 
   const [pickerVisible, setPickerVisibility] = useState(true)
   const [pickedDate, pickDate] = useState(new Date())
-  const [pickedDay, pickDay] = useState(pickedDate.getDate())
   // getMonth start at 0, when creating a date it begin at 1
-  const [pickedMonth, pickMonth] = useState(pickedDate.getMonth())
-  const [pickedYear, pickYear] = useState(pickedDate.getFullYear())
+
+  useEffect(() => {
+    ref!.current!.value = getPickedDate()
+  }, [pickedDate])
 
   function getFirstDayOfCalendar() {
-    const firstDayOfCalendar = new Date(`${pickedYear}-${pickedMonth + 1}-01`)
+    const firstDayOfCalendar = new Date(
+      `${pickedDate.getFullYear()}-${pickedDate.getMonth() + 1}-01`
+    )
     // week begin sunday, index 0
     firstDayOfCalendar.setDate(
       1 + weekStartingDay - firstDayOfCalendar.getDay()
@@ -30,16 +33,18 @@ export const DatePicker = forwardRef(function DatePicker(
 
   function createCalendarDays() {
     const currentMonth = []
-    const firstDayOfCalendar = getFirstDayOfCalendar()
+    const currentDay = getFirstDayOfCalendar()
     for (let i = 0; i < 5; i++) {
       const week_days: Day[] = []
       for (let j = 0; j < 7; j++) {
         const day: Day = {
-          day: firstDayOfCalendar.getDay().toString(),
-          number: firstDayOfCalendar.getDate(),
+          day: `${currentDay.getFullYear()}-${
+            currentDay.getMonth() + 1
+          }-${currentDay.getDate()}`,
+          number: currentDay.getDate(),
         }
         week_days.push(day)
-        firstDayOfCalendar.setDate(firstDayOfCalendar.getDate() + 1)
+        currentDay.setDate(currentDay.getDate() + 1)
       }
       currentMonth.push(week_days)
     }
@@ -52,10 +57,17 @@ export const DatePicker = forwardRef(function DatePicker(
       <tbody>
         {currentMonth.map((week, index) => {
           return (
-            <tr key={`${pickedYear}-${pickedMonth}-week-${index}`}>
+            <tr
+              key={`${pickedDate.getFullYear()}-${pickedDate.getMonth()}-week-${index}`}
+            >
               {week.map((day) => {
                 return (
-                  <td key={`${pickedYear}-${pickedMonth + 1}-${day.number}`}>
+                  <td
+                    key={day.day}
+                    onClick={() => {
+                      setPickedDate(day.day)
+                    }}
+                  >
                     {day.number}
                   </td>
                 )
@@ -76,21 +88,19 @@ export const DatePicker = forwardRef(function DatePicker(
     const year_position = format.indexOf('YYYY')
     const month_position = format.indexOf('MM')
     const day_position = format.indexOf('DD')
-    return `${pickedYear}-${pickedMonth}-${pickedDay}`
+    return `${pickedDate.getFullYear()}-${pickedDate.getMonth()}-${pickedDate.getDate()}`
+  }
+
+  function setPickedDate(clickedDate: string) {
+    pickDate(new Date(clickedDate))
   }
 
   return (
     <div>
-      <input
-        ref={ref}
-        type="text"
-        onFocus={() => setPickerVisibility(true)}
-        // onChange={() => showCurrentMonth()}
-        // value={getPickedDate()}
-      />
+      <input ref={ref} type="text" onFocus={() => setPickerVisibility(true)} />
       <div className={pickerVisible ? 'date-picker' : 'date-picker__hidden'}>
         <div className="date-picker__month-year">
-          ⇦ {pickedMonth + 1} {pickedYear} ⇨
+          ⇦ {pickedDate.getMonth() + 1} {pickedDate.getFullYear()} ⇨
         </div>
         <table>
           <thead>
