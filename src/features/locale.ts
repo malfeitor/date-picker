@@ -1,4 +1,19 @@
-export function getWeekStartingDayNumber(weekStartingDayIndex: string) {
-  // 1 for monday, 0 for sunday
-  return 1
-}
+const WEEK_DAYS = new Map()
+WEEK_DAYS.set('en', [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+])
+WEEK_DAYS.set('fr', [
+  'Dimanche',
+  'Lundi',
+  'Mardi',
+  'Mercredi',
+  'Jeudi',
+  'Vendredi',
+  'Samedi',
+])
