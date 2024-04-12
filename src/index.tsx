@@ -142,8 +142,8 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
           <table>
             <thead>
               <tr>
-                {L.getShortWeekDays().map((day) => (
-                  <th>{day}</th>
+                {L.getShortWeekDays().map((day, index) => (
+                  <th key={`day-name-${index}`}>{day}</th>
                 ))}
               </tr>
             </thead>
