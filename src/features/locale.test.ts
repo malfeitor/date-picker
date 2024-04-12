@@ -45,4 +45,30 @@ describe('Given I want all text in my language', () => {
       })
     })
   })
+  describe('When I read the week days', () => {
+    it('Should return english week days in right order', () => {
+      const L = new Locale({ language: 'en' })
+      expect(L.getWeekDays()).toStrictEqual([
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+      ])
+    })
+    it('Should return french week days in right order', () => {
+      const L = new Locale({ language: 'fr' })
+      expect(L.getWeekDays()).toStrictEqual([
+        'Dimanche',
+        'Lundi',
+        'Mardi',
+        'Mercredi',
+        'Jeudi',
+        'Vendredi',
+        'Samedi',
+      ])
+    })
+  })
 })
