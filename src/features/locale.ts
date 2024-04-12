@@ -1,12 +1,15 @@
 export class L {
   language: string
-  languagesAvailables: Array<string>;
+  languagesAvailables: Array<string>
+  weekStartingDay: number;
   [key: string]:
+    | number
     | string
     | Array<string>
     | Map<string, Array<string>>
     | (() => Array<string> | undefined)
     | ((weekStartingDay: string) => number)
+    | ((weekStartingDay: string) => void)
 
   constructor(language: string) {
     this.languagesAvailables = ['en', 'fr']
@@ -16,6 +19,7 @@ export class L {
     } else {
       this.language = language
     }
+    this.weekStartingDay = 0
     this.en = new Map<string, string[]>()
     this.en.set('weekDays', [
       'Sunday',
@@ -39,13 +43,27 @@ export class L {
   }
 
   getWeekDays(): Array<string> {
-    return (this[this.language] as Map<string, Array<string>>).get(
-      'weekDays'
-    ) as string[]
+    let weekDays = [
+      ...((this[this.language] as Map<string, Array<string>>).get(
+        'weekDays'
+      ) as string[]),
+    ]
+    for (let i = 0; i < this.weekStartingDay; i++) {
+      weekDays.push(weekDays.shift() as string)
+    }
+    return weekDays
   }
 
-  getWeekStartingDayNumber(weekStartingDay: string): number {
+  getShortWeekDays(): Array<string> {
+    return this.getWeekDays().map((day) => day.substring(0, 3))
+  }
+
+  getWeekStartingDayNumber(): number {
+    return this.weekStartingDay
+  }
+
+  setWeekStartingDay(weekStartingDay: string): void {
     const index = this.getWeekDays().indexOf(weekStartingDay)
-    return index === -1 ? 0 : index
+    this.weekStartingDay = index
   }
 }
