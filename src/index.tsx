@@ -5,11 +5,15 @@ import { isInputRef } from './utils/types'
 
 interface InputProps extends React.ComponentPropsWithoutRef<'input'> {
   format?: string
+  weekStartingDay?: string
 }
 
 export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
-  function DatePicker({ format = 'YYYY-MM-DD' }, inputRef) {
-    const weekStartingDay = 1 // 1 for monday, 0 for sunday
+  function DatePicker(
+    { format = 'YYYY-MM-DD', weekStartingDay = 'Monday' },
+    inputRef
+  ) {
+    const weekStartingDayIndex = getWeekStartingDayNumber(weekStartingDay)
 
     const [pickerVisible, setPickerVisibility] = useState(true)
     const [pickedDate, pickDate] = useState(new Date())
@@ -20,15 +24,24 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
       }
     }, [pickedDate])
 
+    function getWeekStartingDayNumber(weekStartingDayIndex: string) {
+      // 1 for monday, 0 for sunday
+      return 1
+    }
+
     function getFirstDayOfCalendar() {
       // getMonth start at 0, when creating a date it begin at 1
       const firstDayOfCalendar = new Date(
         `${pickedDate.getFullYear()}-${pickedDate.getMonth() + 1}-01`
       )
       // week begin sunday, index 0
-      firstDayOfCalendar.setDate(
-        1 + weekStartingDay - firstDayOfCalendar.getDay()
-      )
+      if (firstDayOfCalendar.getDay() === 0 && weekStartingDayIndex !== 0) {
+        firstDayOfCalendar.setDate(-(6 - weekStartingDayIndex))
+      } else {
+        firstDayOfCalendar.setDate(
+          1 + weekStartingDayIndex - firstDayOfCalendar.getDay()
+        )
+      }
       return firstDayOfCalendar
     }
 
