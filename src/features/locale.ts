@@ -16,7 +16,7 @@ export class L {
     } else {
       this.language = language
     }
-    this.en = new Map<'weekDays', string[]>()
+    this.en = new Map<string, string[]>()
     this.en.set('weekDays', [
       'Sunday',
       'Monday',
@@ -26,7 +26,7 @@ export class L {
       'Friday',
       'Saturday',
     ])
-    this.fr = new Map<'weekDays', string[]>()
+    this.fr = new Map<string, string[]>()
     this.fr.set('weekDays', [
       'Dimanche',
       'Lundi',
@@ -45,6 +45,7 @@ export class L {
   }
 
   getWeekStartingDayNumber(weekStartingDay: string): number {
-    return this.getWeekDays().indexOf(weekStartingDay)
+    const index = this.getWeekDays().indexOf(weekStartingDay)
+    return index === -1 ? 0 : index
   }
 }
