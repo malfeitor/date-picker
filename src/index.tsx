@@ -18,7 +18,6 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
     const L = new Locale({ language, weekStartingDay })
 
     const weekStartingDayIndex = L.getWeekStartingDayNumber()
-    console.log(L.getShortWeekDays())
     const [pickerVisible, setPickerVisibility] = useState(true)
     const [pickedDate, pickDate] = useState(new Date())
 
