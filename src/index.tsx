@@ -16,8 +16,7 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
 
     useEffect(() => {
       if (isInputRef(inputRef)) {
-        console.log(inputRef.current.value)
-        inputRef!.current!.value = getPickedDate()
+        inputRef.current.value = getPickedDate()
       }
     }, [pickedDate])
 
