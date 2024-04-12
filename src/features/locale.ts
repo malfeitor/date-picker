@@ -15,6 +15,7 @@ export class Locale {
     | (() => Array<string> | undefined)
     | ((weekStartingDay: string) => number)
     | ((weekStartingDay: string) => void)
+    | ((monthIndex: number) => string)
 
   constructor({ language = 'en', weekStartingDay = 'Sunday' }: LArgs) {
     this.languagesAvailables = ['en', 'fr']
@@ -94,5 +95,13 @@ export class Locale {
 
   getWeekStartingDayNumber(): number {
     return this.weekStartingDay
+  }
+
+  getMonthName(monthIndex: number): string {
+    return (
+      (this[this.language] as Map<string, Array<string>>).get(
+        'months'
+      ) as string[]
+    )[monthIndex]
   }
 }
