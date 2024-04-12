@@ -2,6 +2,7 @@ import React, { forwardRef, useEffect, useState } from 'react'
 import './index.scss'
 import { Day } from './features/day'
 import { isInputRef } from './utils/types'
+import { getWeekStartingDayNumber } from './features/locale'
 
 interface InputProps extends React.ComponentPropsWithoutRef<'input'> {
   format?: string
@@ -23,11 +24,6 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
         inputRef.current.value = getPickedDate()
       }
     }, [pickedDate])
-
-    function getWeekStartingDayNumber(weekStartingDayIndex: string) {
-      // 1 for monday, 0 for sunday
-      return 1
-    }
 
     function getFirstDayOfCalendar() {
       // getMonth start at 0, when creating a date it begin at 1
