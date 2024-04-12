@@ -131,7 +131,7 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
             >
               ⇦
             </span>
-            {pickedDate.getMonth() + 1} {pickedDate.getFullYear()}
+            {L.getMonthName(pickedDate.getMonth())} {pickedDate.getFullYear()}
             <span
               className="date-picker__month-year--arrow"
               onClick={() => setNextMonth()}
