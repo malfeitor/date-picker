@@ -142,13 +142,9 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
           <table>
             <thead>
               <tr>
-                <th>Lun</th>
-                <th>Mar</th>
-                <th>Mer</th>
-                <th>Jeu</th>
-                <th>Ven</th>
-                <th>Sam</th>
-                <th>Dim</th>
+                {L.getShortWeekDays().map((day) => (
+                  <th>{day}</th>
+                ))}
               </tr>
             </thead>
             {showCurrentMonth()}
