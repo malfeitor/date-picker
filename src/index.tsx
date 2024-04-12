@@ -96,6 +96,14 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
       pickDate(new Date(clickedDate))
     }
 
+    function setPreviousMonth() {
+      pickDate(new Date(pickedDate.setMonth(pickedDate.getMonth() - 1)))
+    }
+
+    function setNextMonth() {
+      pickDate(new Date(pickedDate.setMonth(pickedDate.getMonth() + 1)))
+    }
+
     return (
       <div>
         <input
@@ -105,7 +113,19 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
         />
         <div className={pickerVisible ? 'date-picker' : 'date-picker__hidden'}>
           <div className="date-picker__month-year">
-            ⇦ {pickedDate.getMonth() + 1} {pickedDate.getFullYear()} ⇨
+            <span
+              className="date-picker__month-year--arrow"
+              onClick={() => setPreviousMonth()}
+            >
+              ⇦
+            </span>
+            {pickedDate.getMonth() + 1} {pickedDate.getFullYear()}
+            <span
+              className="date-picker__month-year--arrow"
+              onClick={() => setNextMonth()}
+            >
+              ⇨
+            </span>
           </div>
           <table>
             <thead>
