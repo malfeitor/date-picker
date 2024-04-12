@@ -10,10 +10,9 @@ interface InputProps extends React.ComponentPropsWithoutRef<'input'> {
 export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
   function DatePicker({ format = 'YYYY-MM-DD' }, inputRef) {
     const weekStartingDay = 1 // 1 for monday, 0 for sunday
-    // const ref = useRef()
+
     const [pickerVisible, setPickerVisibility] = useState(true)
     const [pickedDate, pickDate] = useState(new Date())
-    // getMonth start at 0, when creating a date it begin at 1
 
     useEffect(() => {
       if (isInputRef(inputRef)) {
@@ -23,6 +22,7 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
     }, [pickedDate])
 
     function getFirstDayOfCalendar() {
+      // getMonth start at 0, when creating a date it begin at 1
       const firstDayOfCalendar = new Date(
         `${pickedDate.getFullYear()}-${pickedDate.getMonth() + 1}-01`
       )
