@@ -1,4 +1,9 @@
-export class L {
+interface LArgs {
+  language?: string
+  weekStartingDay?: string
+}
+
+export class Locale {
   language: string
   languagesAvailables: Array<string>
   weekStartingDay: number;
@@ -11,15 +16,9 @@ export class L {
     | ((weekStartingDay: string) => number)
     | ((weekStartingDay: string) => void)
 
-  constructor(language: string) {
+  constructor({ language = 'en', weekStartingDay = 'Sunday' }: LArgs) {
     this.languagesAvailables = ['en', 'fr']
-    if (this.languagesAvailables.indexOf(language) === -1) {
-      console.error('Unavailable Language, default to english.')
-      this.language = 'en'
-    } else {
-      this.language = language
-    }
-    this.weekStartingDay = 0
+
     this.en = new Map<string, string[]>()
     this.en.set('weekDays', [
       'Sunday',
@@ -29,6 +28,20 @@ export class L {
       'Thursday',
       'Friday',
       'Saturday',
+    ])
+    this.en.set('months', [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
     ])
     this.fr = new Map<string, string[]>()
     this.fr.set('weekDays', [
@@ -40,6 +53,27 @@ export class L {
       'Vendredi',
       'Samedi',
     ])
+    this.fr.set('months', [
+      'Janvier',
+      'Février',
+      'Mars',
+      'Avril',
+      'Mai',
+      'Juin',
+      'Juillet',
+      'Août',
+      'Septembre',
+      'Octobre',
+      'Novembre',
+      'Décembre',
+    ])
+    if (this.languagesAvailables.indexOf(language) === -1) {
+      console.error('Unavailable Language, default to english.')
+      this.language = 'en'
+    } else {
+      this.language = language
+    }
+    this.weekStartingDay = this.getWeekDays().indexOf(weekStartingDay)
   }
 
   getWeekDays(): Array<string> {
@@ -60,10 +94,5 @@ export class L {
 
   getWeekStartingDayNumber(): number {
     return this.weekStartingDay
-  }
-
-  setWeekStartingDay(weekStartingDay: string): void {
-    const index = this.getWeekDays().indexOf(weekStartingDay)
-    this.weekStartingDay = index
   }
 }
