@@ -2,22 +2,23 @@ import React, { forwardRef, useEffect, useState } from 'react'
 import './index.scss'
 import { Day } from './features/day'
 import { isInputRef } from './utils/types'
-import { L } from './features/locale'
+import { Locale } from './features/locale'
 
 interface InputProps extends React.ComponentPropsWithoutRef<'input'> {
   format?: string
   weekStartingDay?: string
+  language?: string
 }
 
 export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
   function DatePicker(
-    { format = 'YYYY-MM-DD', weekStartingDay = 'Monday' },
+    { format = 'YYYY-MM-DD', weekStartingDay = 'Lundi', language = 'fr' },
     inputRef
   ) {
-    const Locale = new L('en')
-    const weekStartingDayIndex =
-      Locale.getWeekStartingDayNumber(weekStartingDay)
+    const L = new Locale({ language, weekStartingDay })
 
+    const weekStartingDayIndex = L.getWeekStartingDayNumber()
+    console.log(L.getShortWeekDays())
     const [pickerVisible, setPickerVisibility] = useState(true)
     const [pickedDate, pickDate] = useState(new Date())
 
