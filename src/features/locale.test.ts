@@ -97,4 +97,22 @@ describe('Given I want all text in my language', () => {
       ])
     })
   })
+  describe("When I try a language who isn't available", () => {
+    it('Should set english by default', () => {
+      const L = new Locale({ language: 'zaer' })
+      expect(L.getMonthName(0)).toBe('January')
+    })
+    it("Should warn in the console this language isn't available", () => {
+      const consoleError = jest.fn()
+      console.error = consoleError
+      const L = new Locale({ language: 'zaer' })
+      expect(consoleError).toHaveBeenCalledWith(
+        'Unavailable Language, default to english.'
+      )
+    })
+    it('Should set sunday as the first day of week', () => {
+      const L = new Locale({ language: 'zaer', weekStartingDay: 'Monday' })
+      expect(L.getWeekStartingDayNumber()).toEqual(0)
+    })
+  })
 })
