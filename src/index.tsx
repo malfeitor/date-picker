@@ -130,7 +130,19 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
             >
               ⇦
             </span>
-            {L.getMonthName(pickedDate.getMonth())} {pickedDate.getFullYear()}
+            <select
+              className="date-picker__month-year--month"
+              defaultValue={pickedDate.getMonth()}
+            >
+              {L.getAllMonthsNames().map((name, index) => {
+                return (
+                  <option value={index} key={`month-${index}`}>
+                    {name}
+                  </option>
+                )
+              })}
+            </select>
+            {pickedDate.getFullYear()}
             <span
               className="date-picker__month-year--arrow"
               onClick={() => setNextMonth()}

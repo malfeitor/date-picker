@@ -3,4 +3,9 @@
   &__hidden {
     display: none;
   }
+  &__month-year {
+    &--month {
+      border: none;
+    }
+  }
 }
