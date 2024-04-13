@@ -14,11 +14,17 @@ interface InputProps extends React.ComponentPropsWithoutRef<'input'> {
   format?: string
   weekStartingDay?: string
   language?: string
+  minimumYear?: number
 }
 
 export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
   function DatePicker(
-    { format = 'YYYY-MM-DD', weekStartingDay = 'Lundi', language = 'fr' },
+    {
+      format = 'YYYY-MM-DD',
+      weekStartingDay = 'Lundi',
+      language = 'fr',
+      minimumYear = 1950,
+    },
     inputRef
   ) {
     const L = new Locale({ language, weekStartingDay })
@@ -27,6 +33,7 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
     const [pickerVisible, setPickerVisibility] = useState(true)
     const [pickedDate, pickDate] = useState(new Date())
     const [pickedMonth, pickMonth] = useState(pickedDate.getMonth())
+    const [pickedYear, pickYear] = useState(pickedDate.getFullYear())
     const monthRef = useRef<HTMLSelectElement>(null)
 
     useEffect(() => {
@@ -45,6 +52,14 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
         )
       )
     }, [pickedMonth])
+
+    useEffect(() => {
+      pickDate(
+        new Date(
+          `${pickedYear}-${pickedDate.getMonth() + 1}-${pickedDate.getDate()}`
+        )
+      )
+    }, [pickedYear])
 
     function getFirstDayOfCalendar() {
       // getMonth start at 0, when creating a date it begin at 1
@@ -142,6 +157,10 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
       pickMonth((e.target as HTMLSelectElement).selectedIndex)
     }
 
+    function setPickedYear(e: SyntheticEvent) {
+      pickYear(Number((e.target as HTMLSelectElement).selectedOptions[0].value))
+    }
+
     return (
       <div>
         <input
@@ -158,7 +177,7 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
               ⇦
             </span>
             <select
-              className="date-picker__month-year--month"
+              className="date-picker__month-year--dropdown"
               defaultValue={pickedDate.getMonth()}
               onChange={(e) => setPickedMonth(e)}
               ref={monthRef}
@@ -171,7 +190,22 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
                 )
               })}
             </select>
-            {pickedDate.getFullYear()}
+            <select
+              className="date-picker__month-year--dropdown"
+              defaultValue={pickedDate.getFullYear()}
+              onChange={(e) => setPickedYear(e)}
+            >
+              {[...Array(100)].map((_, index) => {
+                return (
+                  <option
+                    key={`year-${index + minimumYear}`}
+                    value={index + minimumYear}
+                  >
+                    {index + minimumYear}
+                  </option>
+                )
+              })}
+            </select>
             <span
               className="date-picker__month-year--arrow"
               onClick={() => setNextMonth()}
