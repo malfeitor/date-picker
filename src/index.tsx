@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState } from 'react'
+import React, { SyntheticEvent, forwardRef, useEffect, useState } from 'react'
 import './index.scss'
 import { Day } from './features/day'
 import { isInputRef } from './utils/types'
@@ -20,12 +20,23 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
     const weekStartingDayIndex = L.getWeekStartingDayNumber()
     const [pickerVisible, setPickerVisibility] = useState(true)
     const [pickedDate, pickDate] = useState(new Date())
+    const [pickedMonth, pickMonth] = useState(pickedDate.getMonth())
 
     useEffect(() => {
       if (isInputRef(inputRef)) {
         inputRef.current.value = getPickedDate()
       }
     }, [pickedDate])
+
+    useEffect(() => {
+      pickDate(
+        new Date(
+          `${pickedDate.getFullYear()}-${
+            pickedMonth + 1
+          }-${pickedDate.getDate()}`
+        )
+      )
+    }, [pickedMonth])
 
     function getFirstDayOfCalendar() {
       // getMonth start at 0, when creating a date it begin at 1
@@ -100,7 +111,9 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
       const year_position = format.indexOf('YYYY')
       const month_position = format.indexOf('MM')
       const day_position = format.indexOf('DD')
-      return `${pickedDate.getFullYear()}-${pickedDate.getMonth()}-${pickedDate.getDate()}`
+      return `${pickedDate.getFullYear()}-${
+        pickedDate.getMonth() + 1
+      }-${pickedDate.getDate()}`
     }
 
     function setPickedDate(clickedDate: string) {
@@ -113,6 +126,10 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
 
     function setNextMonth() {
       pickDate(new Date(pickedDate.setMonth(pickedDate.getMonth() + 1)))
+    }
+
+    function setPickedMonth(e: SyntheticEvent) {
+      pickMonth((e.target as HTMLSelectElement).selectedIndex)
     }
 
     return (
@@ -133,6 +150,7 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
             <select
               className="date-picker__month-year--month"
               defaultValue={pickedDate.getMonth()}
+              onChange={(e) => setPickedMonth(e)}
             >
               {L.getAllMonthsNames().map((name, index) => {
                 return (
