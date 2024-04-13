@@ -104,4 +104,10 @@ export class Locale {
       ) as string[]
     )[monthIndex]
   }
+
+  getAllMonthsNames(): string[] {
+    return (this[this.language] as Map<string, Array<string>>).get(
+      'months'
+    ) as string[]
+  }
 }
