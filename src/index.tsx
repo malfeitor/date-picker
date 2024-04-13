@@ -31,7 +31,7 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
 
     useEffect(() => {
       if (isInputRef(inputRef)) {
-        inputRef.current.value = getPickedDate()
+        inputRef.current.value = getFormatedDate()
       }
       monthRef.current!.selectedIndex = pickedDate.getMonth()
     }, [pickedDate])
@@ -110,18 +110,20 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
       )
     }
 
-    function getPickedDate() {
-      /* formats : 
-    YYYY-MM-DD
-    DD/MM/YYYY 
-    etc
-    */
-      const year_position = format.indexOf('YYYY')
-      const month_position = format.indexOf('MM')
-      const day_position = format.indexOf('DD')
-      return `${pickedDate.getFullYear()}-${
-        pickedDate.getMonth() + 1
-      }-${pickedDate.getDate()}`
+    function getFormatedDate() {
+      const yearPosition = format.includes('YYYY')
+      const monthPosition = format.includes('MM')
+      const dayPosition = format.includes('DD')
+      if (yearPosition && monthPosition && dayPosition) {
+        return format
+          .replace('YYYY', `${pickedDate.getFullYear()}`)
+          .replace('MM', `${pickedDate.getMonth() + 1}`.padStart(2, '0'))
+          .replace('DD', `${pickedDate.getDate()}`.padStart(2, '0'))
+      } else {
+        return `${pickedDate.getFullYear()}-${
+          pickedDate.getMonth() + 1
+        }-${pickedDate.getDate()}`
+      }
     }
 
     function setPickedDate(clickedDate: string) {
