@@ -1,4 +1,10 @@
-import React, { SyntheticEvent, forwardRef, useEffect, useState } from 'react'
+import React, {
+  SyntheticEvent,
+  forwardRef,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import './index.scss'
 import { Day } from './features/day'
 import { isInputRef } from './utils/types'
@@ -21,11 +27,13 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
     const [pickerVisible, setPickerVisibility] = useState(true)
     const [pickedDate, pickDate] = useState(new Date())
     const [pickedMonth, pickMonth] = useState(pickedDate.getMonth())
+    const monthRef = useRef<HTMLSelectElement>(null)
 
     useEffect(() => {
       if (isInputRef(inputRef)) {
         inputRef.current.value = getPickedDate()
       }
+      monthRef.current!.selectedIndex = pickedDate.getMonth()
     }, [pickedDate])
 
     useEffect(() => {
@@ -151,6 +159,7 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
               className="date-picker__month-year--month"
               defaultValue={pickedDate.getMonth()}
               onChange={(e) => setPickedMonth(e)}
+              ref={monthRef}
             >
               {L.getAllMonthsNames().map((name, index) => {
                 return (
