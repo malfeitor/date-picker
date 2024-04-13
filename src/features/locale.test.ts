@@ -71,4 +71,30 @@ describe('Given I want all text in my language', () => {
       ])
     })
   })
+  describe('When I set first day to Monday', () => {
+    it('Should return english week days starting from Monday', () => {
+      const L = new Locale({ language: 'en', weekStartingDay: 'Monday' })
+      expect(L.getWeekDays()).toStrictEqual([
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday',
+      ])
+    })
+    it('Should return french week days starting from Monday', () => {
+      const L = new Locale({ language: 'fr', weekStartingDay: 'Lundi' })
+      expect(L.getWeekDays()).toStrictEqual([
+        'Lundi',
+        'Mardi',
+        'Mercredi',
+        'Jeudi',
+        'Vendredi',
+        'Samedi',
+        'Dimanche',
+      ])
+    })
+  })
 })
