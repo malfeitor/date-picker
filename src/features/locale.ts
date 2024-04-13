@@ -71,10 +71,14 @@ export class Locale {
     if (this.languagesAvailables.indexOf(language) === -1) {
       console.error('Unavailable Language, default to english.')
       this.language = 'en'
+      this.weekStartingDay = 0
     } else {
       this.language = language
+      this.weekStartingDay = this.getWeekDays().indexOf(weekStartingDay)
+      if (this.weekStartingDay < 0) {
+        this.weekStartingDay = 0
+      }
     }
-    this.weekStartingDay = this.getWeekDays().indexOf(weekStartingDay)
   }
 
   getWeekDays(): Array<string> {
