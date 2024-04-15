@@ -35,12 +35,14 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
     const [pickedMonth, pickMonth] = useState(pickedDate.getMonth())
     const [pickedYear, pickYear] = useState(pickedDate.getFullYear())
     const monthRef = useRef<HTMLSelectElement>(null)
+    const yearRef = useRef<HTMLSelectElement>(null)
 
     useEffect(() => {
       if (isInputRef(inputRef)) {
         inputRef.current.value = getFormatedDate()
       }
       monthRef.current!.selectedIndex = pickedDate.getMonth()
+      yearRef.current!.selectedIndex = pickedDate.getFullYear() - minimumYear
     }, [pickedDate])
 
     useEffect(() => {
@@ -194,6 +196,7 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
               className="date-picker__month-year--dropdown"
               defaultValue={pickedDate.getFullYear()}
               onChange={(e) => setPickedYear(e)}
+              ref={yearRef}
             >
               {[...Array(100)].map((_, index) => {
                 return (
