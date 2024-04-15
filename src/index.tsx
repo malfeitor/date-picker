@@ -112,6 +112,11 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
                   return (
                     <td
                       key={day.day}
+                      className={
+                        new Date(day.day).getMonth() === pickedDate.getMonth()
+                          ? 'date-picker__calendar'
+                          : 'date-picker__calendar--filler'
+                      }
                       onClick={() => {
                         setPickedDate(day.day)
                       }}
