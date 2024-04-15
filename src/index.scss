@@ -8,4 +8,9 @@
       border: none;
     }
   }
+  &__calendar {
+    &--filler {
+      color: #ccc;
+    }
+  }
 }
