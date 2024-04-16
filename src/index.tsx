@@ -179,6 +179,7 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
           className="date-picker__input"
           onFocus={() => setPickerVisibility(true)}
           placeholder={L.getInputPlaceholder()}
+          readOnly={true}
         />
         <div className={pickerVisible ? 'date-picker' : 'date-picker__hidden'}>
           <div className="date-picker__month-year">
