@@ -38,9 +38,6 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
     const yearRef = useRef<HTMLSelectElement>(null)
 
     useEffect(() => {
-      if (isInputRef(inputRef)) {
-        inputRef.current.value = getFormatedDate()
-      }
       monthRef.current!.selectedIndex = pickedDate.getMonth()
       yearRef.current!.selectedIndex = pickedDate.getFullYear() - minimumYear
     }, [pickedDate])
@@ -133,24 +130,28 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
       )
     }
 
-    function getFormatedDate() {
+    function getFormatedDate(clickedDate = new Date()) {
       const yearPosition = format.includes('YYYY')
       const monthPosition = format.includes('MM')
       const dayPosition = format.includes('DD')
       if (yearPosition && monthPosition && dayPosition) {
         return format
-          .replace('YYYY', `${pickedDate.getFullYear()}`)
-          .replace('MM', `${pickedDate.getMonth() + 1}`.padStart(2, '0'))
-          .replace('DD', `${pickedDate.getDate()}`.padStart(2, '0'))
+          .replace('YYYY', `${clickedDate.getFullYear()}`)
+          .replace('MM', `${clickedDate.getMonth() + 1}`.padStart(2, '0'))
+          .replace('DD', `${clickedDate.getDate()}`.padStart(2, '0'))
       } else {
-        return `${pickedDate.getFullYear()}-${
-          pickedDate.getMonth() + 1
-        }-${pickedDate.getDate()}`
+        console.error('Date format unknown')
+        return `${clickedDate.getFullYear()}-${
+          clickedDate.getMonth() + 1
+        }-${clickedDate.getDate()}`
       }
     }
 
     function setPickedDate(clickedDate: string) {
       pickDate(new Date(clickedDate))
+      if (isInputRef(inputRef)) {
+        inputRef.current.value = getFormatedDate(new Date(clickedDate))
+      }
     }
 
     function setPreviousMonth() {
