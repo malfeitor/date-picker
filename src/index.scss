@@ -1,16 +1,58 @@
 .date-picker {
   position: absolute;
+  width: 240px;
+  border: 1px solid #000;
+  margin: 0;
+  padding: 0;
   &__hidden {
     display: none;
   }
+  &__input {
+    width: 238px;
+    box-sizing: content-box;
+    margin: 0;
+    padding: 0;
+  }
   &__month-year {
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
     &--dropdown {
       border: none;
+      cursor: pointer;
+    }
+    &--arrow {
+      cursor: pointer;
     }
   }
   &__calendar {
+    margin: 0;
+    padding: 0;
+    width: 242px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin: 0 -1px -1px;
+    box-sizing: border-box;
+    &--day-names {
+      width: 100%;
+    }
+    * {
+      border: 1px solid #000;
+    }
     &--filler {
       color: #ccc;
+    }
+    &--day,
+    &--filler {
+      text-align: center;
+      &:hover {
+        background-color: #32a8fd;
+        color: #fff;
+        cursor: pointer;
+      }
     }
   }
 }
