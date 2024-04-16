@@ -107,6 +107,7 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
             return (
               <tr
                 key={`${pickedDate.getFullYear()}-${pickedDate.getMonth()}-week-${index}`}
+                className="date-picker__calendar--week"
               >
                 {week.map((day) => {
                   return (
@@ -114,7 +115,7 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
                       key={day.day}
                       className={
                         new Date(day.day).getMonth() === pickedDate.getMonth()
-                          ? 'date-picker__calendar'
+                          ? 'date-picker__calendar--day'
                           : 'date-picker__calendar--filler'
                       }
                       onClick={() => {
@@ -173,6 +174,7 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
         <input
           ref={inputRef}
           type="text"
+          className="date-picker__input"
           onFocus={() => setPickerVisibility(true)}
         />
         <div className={pickerVisible ? 'date-picker' : 'date-picker__hidden'}>
@@ -221,8 +223,8 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
               ⇨
             </span>
           </div>
-          <table>
-            <thead>
+          <table className="date-picker__calendar">
+            <thead className="date-picker__calendar--day-names">
               <tr>
                 {L.getShortWeekDays().map((day, index) => (
                   <th key={`day-name-${index}`}>{day}</th>
