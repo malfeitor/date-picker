@@ -30,7 +30,7 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
     const L = new Locale({ language, weekStartingDay })
 
     const weekStartingDayIndex = L.getWeekStartingDayNumber()
-    const [pickerVisible, setPickerVisibility] = useState(true)
+    const [pickerVisible, setPickerVisibility] = useState(false)
     const [pickedDate, pickDate] = useState(new Date())
     const [pickedMonth, pickMonth] = useState(pickedDate.getMonth())
     const [pickedYear, pickYear] = useState(pickedDate.getFullYear())
@@ -152,6 +152,7 @@ export const DatePicker = forwardRef<HTMLInputElement, InputProps>(
       if (isInputRef(inputRef)) {
         inputRef.current.value = getFormatedDate(new Date(clickedDate))
       }
+      setPickerVisibility(false)
     }
 
     function setPreviousMonth() {
