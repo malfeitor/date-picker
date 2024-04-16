@@ -44,6 +44,7 @@ export class Locale {
       'November',
       'December',
     ])
+    this.en.set('inputPlaceholder', ['Click to pick a date'])
     this.fr = new Map<string, string[]>()
     this.fr.set('weekDays', [
       'Dimanche',
@@ -68,6 +69,7 @@ export class Locale {
       'Novembre',
       'Décembre',
     ])
+    this.fr.set('inputPlaceholder', ['Cliquez pour choisir une date'])
     if (this.languagesAvailables.indexOf(language) === -1) {
       console.error('Unavailable Language, default to english.')
       this.language = 'en'
@@ -113,5 +115,10 @@ export class Locale {
     return (this[this.language] as Map<string, Array<string>>).get(
       'months'
     ) as string[]
+  }
+  getInputPlaceholder(): string {
+    return (this[this.language] as Map<string, Array<string>>).get(
+      'inputPlaceholder'
+    )![0] as string
   }
 }
