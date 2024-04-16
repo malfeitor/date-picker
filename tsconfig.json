@@ -8,6 +8,7 @@
     "sourceMap": true,
     "outDir": "dist",
     "jsx": "react",
+    "useDefineForClassFields": true,
 
     /* Module Resolution Options */
     "moduleResolution": "node",
