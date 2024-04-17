@@ -4,6 +4,7 @@ export class Store {
   date = new Date()
   visible = false
   format = 'YYYY-MM-DD'
+  datePicked = false
 
   constructor() {
     makeObservable(this, {
@@ -14,6 +15,8 @@ export class Store {
       visible: observable,
       setPickerVisibility: action,
       pickerVisible: computed,
+      datePicked: observable,
+      dateHaveBeenPicked: computed,
     })
   }
 
@@ -41,5 +44,14 @@ export class Store {
     } else {
       console.error('Date format unknown')
     }
+  }
+  setDatePicked() {
+    this.datePicked = true
+  }
+  setDateNotPicked() {
+    this.datePicked = false
+  }
+  get dateHaveBeenPicked() {
+    return this.datePicked
   }
 }
