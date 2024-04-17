@@ -1,9 +1,11 @@
 import React from 'react'
+import { Store } from '../../store'
+import { Locale } from '../../features/locale'
 
 interface Props {
-  store: any
+  store: Store
   minimumYear: number
-  L: any
+  L: Locale
 }
 
 export default function Header({ store, minimumYear, L }: Props) {

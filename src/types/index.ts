@@ -1,3 +1,6 @@
+import { Locale } from '../features/locale'
+import { Store } from '../store'
+
 export interface InputRef {
   current: HTMLInputElement
 }
@@ -16,8 +19,8 @@ export function isInputRef(ref: any): ref is InputRef {
 }
 
 export interface DatePickerViewProps {
-  store: any
-  L: any
+  store: Store
+  L: Locale
   minimumYear: number
 }
 
