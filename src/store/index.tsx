@@ -23,6 +23,7 @@ export class Store {
       getDate: computed,
       setPreviousMonth: action,
       setNextMonth: action,
+      getFirstDayOfCalendar: computed,
     })
   }
 
@@ -64,12 +65,27 @@ export class Store {
     this.weekStartingDay = index
   }
   get getDate() {
-    return this.date
+    return new Date(this.date)
   }
   setPreviousMonth() {
-    this.setNewDate(new Date(this.date.setMonth(this.date.getMonth() - 1)))
+    this.date = new Date(this.date.setMonth(this.date.getMonth() - 1))
   }
   setNextMonth() {
-    this.setNewDate(new Date(this.date.setMonth(this.date.getMonth() + 1)))
+    this.date = new Date(this.date.setMonth(this.date.getMonth() + 1))
+  }
+  get getFirstDayOfCalendar() {
+    // getMonth start at 0, when creating a date it begin at 1
+    const firstDayOfCalendar = new Date(
+      `${this.date.getFullYear()}-${this.date.getMonth() + 1}-01`
+    )
+    // week begin sunday, index 0
+    if (firstDayOfCalendar.getDay() === 0 && this.weekStartingDayIndex !== 0) {
+      firstDayOfCalendar.setDate(-(6 - this.weekStartingDayIndex))
+    } else {
+      firstDayOfCalendar.setDate(
+        1 + this.weekStartingDayIndex - firstDayOfCalendar.getDay()
+      )
+    }
+    return firstDayOfCalendar
   }
 }
