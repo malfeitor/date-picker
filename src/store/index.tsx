@@ -5,6 +5,7 @@ export class Store {
   visible = false
   format = 'YYYY-MM-DD'
   datePicked = false
+  weekStartingDay = 0
 
   constructor() {
     makeObservable(this, {
@@ -17,6 +18,8 @@ export class Store {
       pickerVisible: computed,
       datePicked: observable,
       dateHaveBeenPicked: computed,
+      weekStartingDay: observable,
+      setWeekStartingDayIndex: computed,
     })
   }
 
@@ -53,5 +56,11 @@ export class Store {
   }
   get dateHaveBeenPicked() {
     return this.datePicked
+  }
+  get weekStartingDayIndex() {
+    return this.weekStartingDay
+  }
+  setWeekStartingDayIndex(index: number) {
+    this.weekStartingDay = index
   }
 }
