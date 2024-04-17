@@ -24,6 +24,8 @@ export class Store {
       setPreviousMonth: action,
       setNextMonth: action,
       getFirstDayOfCalendar: computed,
+      setMonth: action,
+      setYear: action,
     })
   }
 
@@ -72,6 +74,12 @@ export class Store {
   }
   setNextMonth() {
     this.date = new Date(this.date.setMonth(this.date.getMonth() + 1))
+  }
+  setMonth(newMonth: number) {
+    this.date = new Date(this.date.setMonth(newMonth))
+  }
+  setYear(newYear: number) {
+    this.date = new Date(this.date.setFullYear(newYear))
   }
   get getFirstDayOfCalendar() {
     // getMonth start at 0, when creating a date it begin at 1

@@ -33,7 +33,7 @@ export const Header = observer(({ store, minimumYear, L }: Props) => {
       <select
         className="date-picker__month-year--dropdown"
         defaultValue={store.getDate.getMonth()}
-        // onChange={(e) => setPickedMonth(e)}
+        onChange={(e) => store.setMonth(Number(e.target.value))}
         ref={monthRef}
       >
         {L.getAllMonthsNames().map((name: string, index: number) => {
@@ -47,7 +47,7 @@ export const Header = observer(({ store, minimumYear, L }: Props) => {
       <select
         className="date-picker__month-year--dropdown"
         defaultValue={store.getDate.getFullYear()}
-        // onChange={(e) => setPickedYear(e)}
+        onChange={(e) => store.setYear(Number(e.target.value))}
         ref={yearRef}
       >
         {[...Array(100)].map((_, index) => {
