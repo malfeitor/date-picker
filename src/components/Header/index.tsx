@@ -1,6 +1,7 @@
 import React from 'react'
 import { Store } from '../../store'
 import { Locale } from '../../features/locale'
+import { observer } from 'mobx-react-lite'
 
 interface Props {
   store: Store
@@ -8,7 +9,7 @@ interface Props {
   L: Locale
 }
 
-export default function Header({ store, minimumYear, L }: Props) {
+export const Header = observer(({ store, minimumYear, L }: Props) => {
   return (
     <div className="date-picker__month-year">
       <span
@@ -56,4 +57,4 @@ export default function Header({ store, minimumYear, L }: Props) {
       </span>
     </div>
   )
-}
+})

@@ -1,13 +1,37 @@
 import React from 'react'
 import { Store } from '../../store'
+import { observer } from 'mobx-react-lite'
 
 class Day {
   number = 0
   day = ''
 }
 
-export default function Calendar({ store }: { store: Store }) {
-  const currentMonth = createCalendarDays(store)
+export const Calendar = observer(({ store }: { store: Store }) => {
+  function createCalendarDays(firstDayOfCalendar: Date) {
+    const calendarLines = 6
+    const weekDays = 7
+    const currentMonth = []
+    const currentDay = firstDayOfCalendar
+    for (let i = 0; i < calendarLines; i++) {
+      const week_days: Day[] = []
+      for (let j = 0; j < weekDays; j++) {
+        const day: Day = {
+          day: `${currentDay.getFullYear()}-${
+            currentDay.getMonth() + 1
+          }-${currentDay.getDate()}`,
+          number: currentDay.getDate(),
+        }
+        week_days.push(day)
+        currentDay.setDate(currentDay.getDate() + 1)
+      }
+      currentMonth.push(week_days)
+    }
+    return currentMonth
+  }
+
+  const currentMonth = createCalendarDays(store.getFirstDayOfCalendar)
+
   return (
     <tbody>
       {currentMonth.map((week, index) => {
@@ -38,40 +62,4 @@ export default function Calendar({ store }: { store: Store }) {
       })}
     </tbody>
   )
-}
-
-function getFirstDayOfCalendar(store: Store) {
-  // getMonth start at 0, when creating a date it begin at 1
-  const firstDayOfCalendar = new Date(
-    `${store.getDate.getFullYear()}-${store.getDate.getMonth() + 1}-01`
-  )
-  // week begin sunday, index 0
-  if (firstDayOfCalendar.getDay() === 0 && store.weekStartingDayIndex !== 0) {
-    firstDayOfCalendar.setDate(-(6 - store.weekStartingDayIndex))
-  } else {
-    firstDayOfCalendar.setDate(
-      1 + store.weekStartingDayIndex - firstDayOfCalendar.getDay()
-    )
-  }
-  return firstDayOfCalendar
-}
-
-function createCalendarDays(store: Store) {
-  const currentMonth = []
-  const currentDay = getFirstDayOfCalendar(store)
-  for (let i = 0; i < 6; i++) {
-    const week_days: Day[] = []
-    for (let j = 0; j < 7; j++) {
-      const day: Day = {
-        day: `${currentDay.getFullYear()}-${
-          currentDay.getMonth() + 1
-        }-${currentDay.getDate()}`,
-        number: currentDay.getDate(),
-      }
-      week_days.push(day)
-      currentDay.setDate(currentDay.getDate() + 1)
-    }
-    currentMonth.push(week_days)
-  }
-  return currentMonth
-}
+})

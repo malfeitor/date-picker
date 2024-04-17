@@ -2,8 +2,8 @@ import React, { LegacyRef } from 'react'
 import { observer } from 'mobx-react-lite'
 
 import { DatePickerViewProps } from '../types'
-import Header from '../components/Header'
-import Calendar from '../components/Calendar'
+import { Header } from '../components/Header'
+import { Calendar } from '../components/Calendar'
 
 export const DatePickerView = observer(
   React.forwardRef(
