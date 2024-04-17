@@ -38,7 +38,7 @@ export class Store {
   setPickerVisibility(visible: boolean) {
     this.visible = visible
   }
-  get pickerVisible(): boolean {
+  get pickerVisible() {
     return this.visible
   }
   setFormat(format: string) {
@@ -51,11 +51,8 @@ export class Store {
       console.error('Date format unknown')
     }
   }
-  setDatePicked() {
-    this.datePicked = true
-  }
-  setDateNotPicked() {
-    this.datePicked = false
+  setDatePicked(value: boolean) {
+    this.datePicked = value
   }
   get dateHaveBeenPicked() {
     return this.datePicked
@@ -70,9 +67,9 @@ export class Store {
     return this.date
   }
   setPreviousMonth() {
-    this.date = new Date(this.date.setMonth(this.date.getMonth() - 1))
+    this.setNewDate(new Date(this.date.setMonth(this.date.getMonth() - 1)))
   }
   setNextMonth() {
-    this.date = new Date(this.date.setMonth(this.date.getMonth() + 1))
+    this.setNewDate(new Date(this.date.setMonth(this.date.getMonth() + 1)))
   }
 }
