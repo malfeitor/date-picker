@@ -17,7 +17,7 @@ export const DatePickerView = observer(
             placeholder={L.getInputPlaceholder()}
             readOnly={true}
             ref={ref}
-            value={store.dateHaveBeenPicked ? store.formatedDate() : ''}
+            value={store.dateHaveBeenPicked ? store.formatedDate : ''}
           />
           <div
             className={
