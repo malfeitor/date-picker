@@ -12,11 +12,13 @@ interface Props {
 
 export const Header = observer(({ store, minimumYear, L }: Props) => {
   const monthRef = useRef<HTMLSelectElement>(null)
+  const yearRef = useRef<HTMLSelectElement>(null)
   reaction(
     () => store.getDate,
     (date): void => {
-      if (monthRef.current !== null) {
+      if (monthRef.current !== null && yearRef.current !== null) {
         monthRef.current.value = date.getMonth().toString()
+        yearRef.current.value = date.getFullYear().toString()
       }
     }
   )
@@ -46,7 +48,7 @@ export const Header = observer(({ store, minimumYear, L }: Props) => {
         className="date-picker__month-year--dropdown"
         defaultValue={store.getDate.getFullYear()}
         // onChange={(e) => setPickedYear(e)}
-        // ref={yearRef}
+        ref={yearRef}
       >
         {[...Array(100)].map((_, index) => {
           return (
