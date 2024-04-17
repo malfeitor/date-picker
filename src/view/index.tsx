@@ -33,7 +33,7 @@ export const DatePickerView = observer(
                   ))}
                 </tr>
               </thead>
-              <Calendar store={store} />
+              <Calendar store={store} inputRef={ref} />
             </table>
           </div>
         </div>
