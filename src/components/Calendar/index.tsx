@@ -7,7 +7,6 @@ class Day {
 }
 
 export default function Calendar({ store }: { store: Store }) {
-  console.log(store.getDate)
   const currentMonth = createCalendarDays(store)
   return (
     <tbody>

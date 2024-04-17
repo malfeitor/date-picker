@@ -50,7 +50,7 @@ export default function Header({ store, minimumYear, L }: Props) {
       </select>
       <span
         className="date-picker__month-year--arrow"
-        // onClick={() => setNextMonth()}
+        onClick={() => store.setNextMonth()}
       >
         ⇨
       </span>

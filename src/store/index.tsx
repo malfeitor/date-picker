@@ -21,6 +21,8 @@ export class Store {
       weekStartingDay: observable,
       setWeekStartingDayIndex: action,
       getDate: computed,
+      setPreviousMonth: action,
+      setNextMonth: action,
     })
   }
 
@@ -66,5 +68,11 @@ export class Store {
   }
   get getDate() {
     return this.date
+  }
+  setPreviousMonth() {
+    this.date = new Date(this.date.setMonth(this.date.getMonth() - 1))
+  }
+  setNextMonth() {
+    this.date = new Date(this.date.setMonth(this.date.getMonth() + 1))
   }
 }
