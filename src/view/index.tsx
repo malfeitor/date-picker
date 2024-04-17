@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite'
 
 import { DatePickerViewProps } from '../types'
 import Header from '../components/Header'
+import Calendar from '../components/Calendar'
 
 export const DatePickerView = observer(
   React.forwardRef(
@@ -16,6 +17,7 @@ export const DatePickerView = observer(
             placeholder={L.getInputPlaceholder()}
             readOnly={true}
             ref={ref}
+            value={store.dateHaveBeenPicked ? store.formatedDate() : ''}
           />
           <div
             className={
@@ -31,6 +33,7 @@ export const DatePickerView = observer(
                   ))}
                 </tr>
               </thead>
+              <Calendar />
             </table>
           </div>
         </div>
