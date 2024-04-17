@@ -26,6 +26,7 @@ export class Store {
       getFirstDayOfCalendar: computed,
       setMonth: action,
       setYear: action,
+      setDatePicked: action,
     })
   }
 
