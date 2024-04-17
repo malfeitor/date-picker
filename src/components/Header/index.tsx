@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Store } from '../../store'
 import { Locale } from '../../features/locale'
 import { observer } from 'mobx-react-lite'
+import { reaction } from 'mobx'
 
 interface Props {
   store: Store
@@ -10,6 +11,15 @@ interface Props {
 }
 
 export const Header = observer(({ store, minimumYear, L }: Props) => {
+  const monthRef = useRef<HTMLSelectElement>(null)
+  reaction(
+    () => store.getDate,
+    (date): void => {
+      if (monthRef.current !== null) {
+        monthRef.current.value = date.getMonth().toString()
+      }
+    }
+  )
   return (
     <div className="date-picker__month-year">
       <span
@@ -20,9 +30,9 @@ export const Header = observer(({ store, minimumYear, L }: Props) => {
       </span>
       <select
         className="date-picker__month-year--dropdown"
-        defaultValue={store.date.getMonth()}
+        defaultValue={store.getDate.getMonth()}
         // onChange={(e) => setPickedMonth(e)}
-        // ref={monthRef}
+        ref={monthRef}
       >
         {L.getAllMonthsNames().map((name: string, index: number) => {
           return (
@@ -34,7 +44,7 @@ export const Header = observer(({ store, minimumYear, L }: Props) => {
       </select>
       <select
         className="date-picker__month-year--dropdown"
-        defaultValue={store.date.getFullYear()}
+        defaultValue={store.getDate.getFullYear()}
         // onChange={(e) => setPickedYear(e)}
         // ref={yearRef}
       >
