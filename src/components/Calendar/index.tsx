@@ -12,7 +12,7 @@ export const Calendar = observer(({ store }: { store: Store }) => {
     const calendarLines = 6
     const weekDays = 7
     const currentMonth = []
-    const currentDay = firstDayOfCalendar
+    const currentDay = new Date(firstDayOfCalendar)
     for (let i = 0; i < calendarLines; i++) {
       const week_days: Day[] = []
       for (let j = 0; j < weekDays; j++) {
