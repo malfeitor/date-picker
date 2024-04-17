@@ -6,11 +6,6 @@ import { Store } from './store'
 import { DatePickerView } from './view'
 import { Locale } from './features/locale'
 
-class Day {
-  number = 0
-  day = ''
-}
-
 export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
   function DatePicker(
     {
@@ -24,6 +19,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
     const L = new Locale({ language, weekStartingDay })
     const store = new Store()
     store.setFormat(format)
+    store.setWeekStartingDayIndex(L.getWeekStartingDayNumber())
 
     return (
       <DatePickerView

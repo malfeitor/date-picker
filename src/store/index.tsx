@@ -19,7 +19,8 @@ export class Store {
       datePicked: observable,
       dateHaveBeenPicked: computed,
       weekStartingDay: observable,
-      setWeekStartingDayIndex: computed,
+      setWeekStartingDayIndex: action,
+      getDate: computed,
     })
   }
 
@@ -62,5 +63,8 @@ export class Store {
   }
   setWeekStartingDayIndex(index: number) {
     this.weekStartingDay = index
+  }
+  get getDate() {
+    return this.date
   }
 }
