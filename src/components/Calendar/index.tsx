@@ -55,7 +55,6 @@ export const Calendar = observer(
                     }
                     onClick={() => {
                       store.setNewDate(new Date(day.day))
-                      store.setDatePicked(true)
                       store.setPickerVisibility(false)
                       if (isInputRef(inputRef)) {
                         inputRef.current.value = store.formatedDate

@@ -4,7 +4,6 @@ export class Store {
   date = new Date()
   visible = false
   format = 'YYYY-MM-DD'
-  datePicked = false
   weekStartingDay = 0
 
   constructor() {
@@ -16,8 +15,6 @@ export class Store {
       visible: observable,
       setPickerVisibility: action,
       pickerVisible: computed,
-      datePicked: observable,
-      dateHaveBeenPicked: computed,
       weekStartingDay: observable,
       setWeekStartingDayIndex: action,
       getDate: computed,
@@ -26,7 +23,6 @@ export class Store {
       getFirstDayOfCalendar: computed,
       setMonth: action,
       setYear: action,
-      setDatePicked: action,
     })
   }
 
@@ -54,12 +50,6 @@ export class Store {
     } else {
       console.error('Date format unknown')
     }
-  }
-  setDatePicked(value: boolean) {
-    this.datePicked = value
-  }
-  get dateHaveBeenPicked() {
-    return this.datePicked
   }
   get weekStartingDayIndex() {
     return this.weekStartingDay
