@@ -2,11 +2,7 @@ import React, { LegacyRef } from 'react'
 import { Store } from '../../store'
 import { observer } from 'mobx-react-lite'
 import { isInputRef } from '../../types'
-
-class Day {
-  number = 0
-  day = ''
-}
+import { Day } from '../../features/day'
 
 export const Calendar = observer(
   ({
