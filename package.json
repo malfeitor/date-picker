@@ -1,6 +1,6 @@
 {
   "name": "@malfeitor/date-picker",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "A react component who pick dates.",
   "main": "dist/index.jsx",
   "scripts": {
@@ -32,12 +32,12 @@
     "babel-jest": "^29.7.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "sass": "^1.74.1",
+    "sass": "^1.75.0",
     "typescript": "^5.4.4"
   },
   "dependencies": {
-    "-": "^0.0.1",
-    "g": "^2.0.1",
+    "mobx": "^6.12.3",
+    "mobx-react-lite": "^4.0.7",
     "npm": "^10.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
