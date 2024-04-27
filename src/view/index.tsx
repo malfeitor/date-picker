@@ -7,7 +7,10 @@ import { Calendar } from '../components/Calendar'
 
 export const DatePickerView = observer(
   React.forwardRef(
-    ({ store, L }: DatePickerViewProps, ref: LegacyRef<HTMLInputElement>) => {
+    (
+      { store, L, minimumYear, required }: DatePickerViewProps,
+      ref: LegacyRef<HTMLInputElement>
+    ) => {
       return (
         <div>
           <input
@@ -17,13 +20,14 @@ export const DatePickerView = observer(
             placeholder={L.getInputPlaceholder()}
             readOnly={true}
             ref={ref}
+            required={required}
           />
           <div
             className={
               store.pickerVisible ? 'date-picker' : 'date-picker__hidden'
             }
           >
-            <Header store={store} minimumYear={1950} L={L} />
+            <Header store={store} minimumYear={minimumYear} L={L} />
             <table className="date-picker__calendar">
               <thead className="date-picker__calendar--day-names">
                 <tr>

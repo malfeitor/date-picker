@@ -13,6 +13,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
       weekStartingDay = 'Monday',
       language = 'en',
       minimumYear = 1950,
+      required = false,
     },
     inputRef
   ) {
@@ -20,13 +21,13 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
     const store = new Store()
     store.setFormat(format)
     store.setWeekStartingDayIndex(L.getWeekStartingDayNumber())
-
     return (
       <DatePickerView
         ref={inputRef}
         store={store}
         L={L}
         minimumYear={minimumYear}
+        required={required}
       />
     )
   }
