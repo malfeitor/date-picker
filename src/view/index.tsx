@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite'
 import { DatePickerViewProps } from '../types'
 import { Header } from '../components/Header'
 import { Calendar } from '../components/Calendar'
+import mimicInputReadOnly from '../utils/mimicInputReadOnly'
 
 export const DatePickerView = observer(
   React.forwardRef(
@@ -18,7 +19,7 @@ export const DatePickerView = observer(
             className="date-picker__input"
             onFocus={() => store.setPickerVisibility(true)}
             placeholder={L.getInputPlaceholder()}
-            readOnly={true}
+            onKeyDown={(e) => mimicInputReadOnly(e)}
             ref={ref}
             required={required}
           />
