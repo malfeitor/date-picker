@@ -1,6 +1,6 @@
 {
   "name": "@malfeitor/date-picker",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "A react component who pick dates.",
   "main": "dist/index.jsx",
   "scripts": {
