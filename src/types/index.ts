@@ -22,6 +22,7 @@ export interface DatePickerViewProps {
   store: Store
   L: Locale
   minimumYear: number
+  required: boolean
 }
 
 export interface DatePickerProps
@@ -30,4 +31,5 @@ export interface DatePickerProps
   weekStartingDay?: string
   language?: string
   minimumYear?: number
+  required?: boolean
 }
