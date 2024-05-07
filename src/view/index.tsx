@@ -9,7 +9,7 @@ import mimicInputReadOnly from '../utils/mimicInputReadOnly'
 export const DatePickerView = observer(
   React.forwardRef(
     (
-      { store, L, minimumYear, required }: DatePickerViewProps,
+      { store, L, minimumYear, ...restProps }: DatePickerViewProps,
       ref: LegacyRef<HTMLInputElement>
     ) => {
       return (
@@ -21,7 +21,7 @@ export const DatePickerView = observer(
             placeholder={L.getInputPlaceholder()}
             onKeyDown={(e) => mimicInputReadOnly(e)}
             ref={ref}
-            required={required}
+            {...restProps}
           />
           <div
             className={
