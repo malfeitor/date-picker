@@ -1,7 +1,7 @@
 import React, { LegacyRef } from 'react'
 import { Store } from '../../store'
 import { observer } from 'mobx-react-lite'
-import { isInputRef } from '../../types'
+import { isInputRef } from '../../utils/types'
 import { Day } from '../../features/day'
 
 export const Calendar = observer(
