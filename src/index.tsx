@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
 import './index.scss'
-import { DatePickerProps } from './types'
+import { DatePickerProps } from './utils/types'
 import { Store } from './store'
 
 import { DatePickerView } from './view'
@@ -13,7 +13,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
       weekStartingDay = 'Monday',
       language = 'en',
       minimumYear = 1950,
-      required = false,
+      ...restProps
     },
     inputRef
   ) {
@@ -27,7 +27,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
         store={store}
         L={L}
         minimumYear={minimumYear}
-        required={required}
+        {...restProps}
       />
     )
   }
