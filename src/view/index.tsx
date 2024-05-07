@@ -1,7 +1,7 @@
 import React, { LegacyRef } from 'react'
 import { observer } from 'mobx-react-lite'
 
-import { DatePickerViewProps } from '../types'
+import { DatePickerViewProps } from '../utils/types'
 import { Header } from '../components/Header'
 import { Calendar } from '../components/Calendar'
 import mimicInputReadOnly from '../utils/mimicInputReadOnly'
