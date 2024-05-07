@@ -13,7 +13,7 @@ export const DatePickerView = observer(
       ref: LegacyRef<HTMLInputElement>
     ) => {
       return (
-        <div>
+        <div className="date-picker">
           <input
             type="text"
             className="date-picker__input"
@@ -24,9 +24,10 @@ export const DatePickerView = observer(
             {...restProps}
           />
           <div
-            className={
-              store.pickerVisible ? 'date-picker' : 'date-picker__hidden'
-            }
+            style={{
+              display: store.pickerVisible ? 'block' : 'none',
+            }}
+            className="date-picker__content"
           >
             <Header store={store} minimumYear={minimumYear} L={L} />
             <table className="date-picker__calendar">

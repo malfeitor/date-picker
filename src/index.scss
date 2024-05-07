@@ -1,10 +1,12 @@
 .date-picker {
-  position: absolute;
-  width: 240px;
-  border: 1px solid #000;
-  margin: 0;
-  padding: 0;
-  background-color: #fff;
+  &__content {
+    position: absolute;
+    width: 240px;
+    border: 1px solid #000;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+  }
   &__hidden {
     display: none;
   }
