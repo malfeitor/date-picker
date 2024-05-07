@@ -35,6 +35,7 @@ export const Header = observer(({ store, minimumYear, L }: Props) => {
         defaultValue={store.getDate.getMonth()}
         onChange={(e) => store.setMonth(Number(e.target.value))}
         ref={monthRef}
+        disabled={!store.pickerVisible}
       >
         {L.getAllMonthsNames().map((name: string, index: number) => {
           return (
@@ -49,6 +50,7 @@ export const Header = observer(({ store, minimumYear, L }: Props) => {
         defaultValue={store.getDate.getFullYear()}
         onChange={(e) => store.setYear(Number(e.target.value))}
         ref={yearRef}
+        disabled={!store.pickerVisible}
       >
         {[...Array(100)].map((_, index) => {
           return (
