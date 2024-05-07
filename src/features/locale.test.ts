@@ -105,7 +105,7 @@ describe('Given I want all text in my language', () => {
     it("Should warn in the console this language isn't available", () => {
       const consoleError = jest.fn()
       console.error = consoleError
-      const L = new Locale({ language: 'zaer' })
+      new Locale({ language: 'zaer' })
       expect(consoleError).toHaveBeenCalledWith(
         'Unavailable Language, default to english.'
       )
