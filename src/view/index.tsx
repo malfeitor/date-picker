@@ -15,6 +15,7 @@ export const DatePickerView = observer(
       return (
         <div className="date-picker">
           <input
+            name="datepicker-input"
             type="text"
             className="date-picker__input"
             onFocus={() => store.setPickerVisibility(true)}
