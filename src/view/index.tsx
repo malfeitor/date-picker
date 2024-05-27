@@ -30,6 +30,7 @@ export const DatePickerView = observer(
             onKeyDown={(e) => mimicInputReadOnly(e)}
             {...restProps}
             ref={ref}
+            autoComplete="off"
           />
           <Form.Control.Feedback type="invalid">
             {errorInvalidDate}
