@@ -1,4 +1,3 @@
-import { Ref } from 'react'
 import { Locale } from '../features/locale'
 import { Store } from '../store'
 
@@ -20,7 +19,6 @@ export function isInputRef(ref: any): ref is InputRef {
 }
 
 export interface DatePickerViewProps {
-  ref: Ref<HTMLInputElement>
   store: Store
   L: Locale
   minimumYear: number
