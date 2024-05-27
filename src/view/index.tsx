@@ -1,4 +1,10 @@
-import React, { Ref, useEffect, useRef, useState } from 'react'
+import React, {
+  ForwardedRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react'
 import { observer } from 'mobx-react-lite'
 
 import { DatePickerViewProps } from '../utils/types'
@@ -18,29 +24,40 @@ export const DatePickerView = observer(
         errorInvalidDate = 'Error, invalid date',
         ...restProps
       }: DatePickerViewProps,
-      ref: Ref<HTMLInputElement>
+      ref: ForwardedRef<HTMLInputElement>
     ) => {
       const datePickerContentRef = useRef<HTMLDivElement>(null)
+      const inputRef = useRef<HTMLInputElement>(null)
       const [contentStyle, setContentStyle] = useState({
         display: 'none',
       })
 
+      useImperativeHandle(ref, () => inputRef.current as HTMLInputElement, [])
+
+      const blurDatePicker = (e: MouseEvent) => {
+        if (
+          !datePickerContentRef.current?.parentNode?.contains(e.target as Node)
+        ) {
+          store.setPickerVisibility(false)
+        }
+      }
+
       reaction(
         () => store.pickerVisible,
         (visible) => {
-          if (visible) {
-            setContentStyle((contentStyle) => ({
-              ...contentStyle,
-              display: 'block',
-            }))
-          } else {
-            setContentStyle((contentStyle) => ({
-              ...contentStyle,
-              display: 'none',
-            }))
-          }
+          setContentStyle((contentStyle) => ({
+            ...contentStyle,
+            display: visible ? 'block' : 'none',
+          }))
         }
       )
+
+      useEffect(() => {
+        window.addEventListener('click', blurDatePicker)
+        return () => {
+          window.removeEventListener('click', blurDatePicker)
+        }
+      }, [])
 
       useEffect(() => {
         const documentBodyWidth = document.body.clientWidth
@@ -59,7 +76,7 @@ export const DatePickerView = observer(
       }, [contentStyle])
 
       return (
-        <div className="date-picker">
+        <div className="date-picker" tabIndex={-1}>
           <Form.Control
             name="datepicker-input"
             type="text"
@@ -68,7 +85,7 @@ export const DatePickerView = observer(
             placeholder={L.getInputPlaceholder()}
             onKeyDown={(e) => mimicInputReadOnly(e)}
             {...restProps}
-            ref={ref}
+            ref={inputRef}
             autoComplete="off"
           />
           <Form.Control.Feedback type="invalid">
