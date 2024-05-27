@@ -2,6 +2,7 @@ export interface InputRef {
   current: HTMLInputElement
 }
 
+import { Ref } from 'react'
 import { Locale } from '../features/locale'
 import { Store } from '../store'
 
@@ -22,11 +23,12 @@ export function isInputRef(ref: any): ref is InputRef {
   }
 }
 
-export interface DatePickerViewProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface DatePickerViewProps {
+  ref: Ref<HTMLInputElement>
   store: Store
   L: Locale
   minimumYear: number
+  errorInvalidDate: string
 }
 
 export interface DatePickerProps
