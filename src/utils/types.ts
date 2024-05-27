@@ -37,4 +37,5 @@ export interface DatePickerProps
   weekStartingDay?: string
   language?: string
   minimumYear?: number
+  errorInvalidDate?: string
 }
