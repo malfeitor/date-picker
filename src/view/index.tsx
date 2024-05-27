@@ -20,7 +20,7 @@ export const DatePickerView = observer(
       }: DatePickerViewProps,
       ref: Ref<HTMLInputElement>
     ) => {
-      const datePickerContentRef = useRef(null)
+      const datePickerContentRef = useRef<HTMLDivElement>(null)
       const [contentStyle, setContentStyle] = useState({
         display: 'none',
       })
@@ -44,9 +44,8 @@ export const DatePickerView = observer(
 
       useEffect(() => {
         const documentBodyWidth = document.body.clientWidth
-        const { x, width } = (
-          datePickerContentRef.current as HTMLInputElement
-        ).getBoundingClientRect()
+        const { x, width } =
+          datePickerContentRef.current!.getBoundingClientRect()
         if (x + width > documentBodyWidth) {
           const distanceFromLeft = documentBodyWidth - (x + width)
           const newStyle = {
