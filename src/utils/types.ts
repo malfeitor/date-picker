@@ -28,7 +28,7 @@ export interface DatePickerViewProps {
   store: Store
   L: Locale
   minimumYear: number
-  errorInvalidDate: string
+  errorInvalidDate?: string
 }
 
 export interface DatePickerProps
