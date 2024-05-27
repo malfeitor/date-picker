@@ -1,20 +1,18 @@
 .date-picker {
+  position: relative;
   &__content {
     position: absolute;
-    width: 240px;
     border: 1px solid #000;
-    margin: 0;
-    padding: 0;
+    padding: 0 10px 10px;
     background-color: #fff;
   }
   &__hidden {
     display: none;
   }
   &__input {
-    width: 238px;
-    box-sizing: content-box;
+    width: 150px;
     margin: 0;
-    padding: 0;
+    padding: 0 0 0 5px;
   }
   &__month-year {
     margin: 0;
@@ -34,16 +32,10 @@
   &__calendar {
     margin: 0;
     padding: 0;
-    width: 242px;
-    border-collapse: collapse;
+    width: 260px;
     table-layout: fixed;
-    margin: 0 -1px -1px;
-    box-sizing: border-box;
     &--day-names {
       width: 100%;
-    }
-    * {
-      border: 1px solid #000;
     }
     &--filler {
       color: #ccc;
