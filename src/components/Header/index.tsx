@@ -3,6 +3,10 @@ import { Store } from '../../store'
 import { Locale } from '../../features/locale'
 import { observer } from 'mobx-react-lite'
 import { reaction } from 'mobx'
+import {
+  PiArrowFatLinesRightFill,
+  PiArrowFatLinesLeftFill,
+} from 'react-icons/pi'
 
 interface Props {
   store: Store
@@ -28,7 +32,7 @@ export const Header = observer(({ store, minimumYear, L }: Props) => {
         className="date-picker__month-year--arrow"
         onClick={() => store.setPreviousMonth()}
       >
-        ⇦
+        <PiArrowFatLinesLeftFill />
       </span>
       <select
         name="month-select"
@@ -69,7 +73,7 @@ export const Header = observer(({ store, minimumYear, L }: Props) => {
         className="date-picker__month-year--arrow"
         onClick={() => store.setNextMonth()}
       >
-        ⇨
+        <PiArrowFatLinesRightFill />
       </span>
     </div>
   )
