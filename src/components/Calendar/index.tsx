@@ -1,6 +1,7 @@
 import React, { LegacyRef } from 'react'
-import { Store } from '../../store'
+import { AnimatePresence, motion } from 'framer-motion'
 import { observer } from 'mobx-react-lite'
+import { Store } from '../../store'
 import { isInputRef } from '../../utils/types'
 import { Day } from '../../features/day'
 
@@ -33,42 +34,55 @@ export const Calendar = observer(
       }
       return currentMonth
     }
+    const firstDayOfCalendar = store.getFirstDayOfCalendar
+    const currentMonth = createCalendarDays(firstDayOfCalendar)
+    const animationDirection = store.getAnimationDirection
 
-    const currentMonth = createCalendarDays(store.getFirstDayOfCalendar)
+    const animationVariants = {
+      enter: (direction: number) => ({ x: 300 * direction }),
+      center: () => ({ x: 0 }),
+      exit: (direction: number) => ({ x: -300 * direction }),
+    }
 
     return (
-      <tbody>
-        {currentMonth.map((week, index) => {
-          return (
+      <AnimatePresence initial={false} custom={animationDirection}>
+        <motion.tbody
+          key={`calendar-${firstDayOfCalendar.getTime()}`}
+          variants={animationVariants}
+          custom={animationDirection}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{ duration: 0.5 }}
+        >
+          {currentMonth.map((week, index) => (
             <tr
               key={`${store.getDate.getFullYear()}-${store.getDate.getMonth()}-week-${index}`}
               className="date-picker__calendar--week"
             >
-              {week.map((day) => {
-                return (
-                  <td
-                    key={day.day}
-                    className={
-                      new Date(day.day).getMonth() === store.getDate.getMonth()
-                        ? 'date-picker__calendar--day'
-                        : 'date-picker__calendar--filler'
+              {week.map((day) => (
+                <td
+                  key={day.day}
+                  className={
+                    new Date(day.day).getMonth() === store.getDate.getMonth()
+                      ? 'date-picker__calendar--day'
+                      : 'date-picker__calendar--filler'
+                  }
+                  onClick={() => {
+                    store.setNewDate(new Date(day.day))
+                    store.setPickerVisibility(false)
+                    if (isInputRef(inputRef)) {
+                      inputRef.current.value = store.formatedDate
                     }
-                    onClick={() => {
-                      store.setNewDate(new Date(day.day))
-                      store.setPickerVisibility(false)
-                      if (isInputRef(inputRef)) {
-                        inputRef.current.value = store.formatedDate
-                      }
-                    }}
-                  >
-                    {day.number}
-                  </td>
-                )
-              })}
+                  }}
+                >
+                  {day.number}
+                </td>
+              ))}
             </tr>
-          )
-        })}
-      </tbody>
+          ))}
+        </motion.tbody>
+      </AnimatePresence>
     )
   }
 )
