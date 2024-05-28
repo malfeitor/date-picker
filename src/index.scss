@@ -41,7 +41,17 @@
     margin: 0;
     padding: 0;
     width: 260px;
+    height: 182px;
     table-layout: fixed;
+    position: relative;
+    overflow: hidden;
+    tbody:not(:first-of-type) {
+      position: absolute;
+      top: 26px;
+      td {
+        width: 37.14px;
+      }
+    }
     &--day-names {
       width: 100%;
     }
