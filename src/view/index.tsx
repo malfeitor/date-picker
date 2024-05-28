@@ -6,13 +6,13 @@ import React, {
   useState,
 } from 'react'
 import { observer } from 'mobx-react-lite'
-
 import { DatePickerViewProps } from '../utils/types'
 import { Header } from '../components/Header'
 import { Calendar } from '../components/Calendar'
 import mimicInputReadOnly from '../utils/mimicInputReadOnly'
 import { Form } from 'react-bootstrap'
 import { reaction } from 'mobx'
+import { FaRegCalendarDays } from 'react-icons/fa6'
 
 export const DatePickerView = observer(
   React.forwardRef(
@@ -88,6 +88,7 @@ export const DatePickerView = observer(
             ref={inputRef}
             autoComplete="off"
           />
+          <FaRegCalendarDays className="date-picker__input--icon" />
           <Form.Control.Feedback type="invalid">
             {errorInvalidDate}
           </Form.Control.Feedback>
