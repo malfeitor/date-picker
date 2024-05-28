@@ -5,6 +5,7 @@ export class Store {
   visible = false
   format = 'YYYY-MM-DD'
   weekStartingDay = 0
+  animationDirection = 0
 
   constructor() {
     makeObservable(this, {
@@ -23,6 +24,8 @@ export class Store {
       getFirstDayOfCalendar: computed,
       setMonth: action,
       setYear: action,
+      animationDirection: observable,
+      getAnimationDirection: computed,
     })
   }
 
@@ -61,16 +64,32 @@ export class Store {
     return new Date(this.date)
   }
   setPreviousMonth() {
-    this.date = new Date(this.date.setMonth(this.date.getMonth() - 1))
+    const oldDate = new Date(this.date)
+    const newDate = new Date(this.date)
+    newDate.setMonth(this.date.getMonth() - 1)
+    this.animationDirection = this.date.getTime() > oldDate.getTime() ? 1 : -1
+    this.date = newDate
   }
   setNextMonth() {
-    this.date = new Date(this.date.setMonth(this.date.getMonth() + 1))
+    const oldDate = new Date(this.date)
+    const newDate = new Date(this.date)
+    newDate.setMonth(this.date.getMonth() + 1)
+    this.animationDirection = newDate.getTime() > oldDate.getTime() ? 1 : -1
+    this.date = newDate
   }
   setMonth(newMonth: number) {
-    this.date = new Date(this.date.setMonth(newMonth))
+    const oldDate = new Date(this.date)
+    const newDate = new Date(this.date)
+    newDate.setMonth(newMonth)
+    this.animationDirection = newDate.getTime() > oldDate.getTime() ? 1 : -1
+    this.date = newDate
   }
   setYear(newYear: number) {
-    this.date = new Date(this.date.setFullYear(newYear))
+    const oldDate = new Date(this.date)
+    const newDate = new Date(this.date)
+    newDate.setFullYear(newYear)
+    this.animationDirection = newDate.getTime() > oldDate.getTime() ? 1 : -1
+    this.date = newDate
   }
   get getFirstDayOfCalendar() {
     // getMonth start at 0, when creating a date it begin at 1
@@ -86,5 +105,11 @@ export class Store {
       )
     }
     return firstDayOfCalendar
+  }
+  get getAnimationDirection() {
+    return this.animationDirection
+  }
+  setAnimationDirection(direction: number) {
+    this.animationDirection = direction
   }
 }
