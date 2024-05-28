@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
+    "framer-motion": "^11.2.6",
     "mobx": "^6.12.3",
     "mobx-react-lite": "^4.0.7",
     "npm": "^10.5.1",
