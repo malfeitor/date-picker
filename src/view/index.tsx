@@ -1,4 +1,5 @@
 import React, {
+  CSSProperties,
   ForwardedRef,
   useEffect,
   useImperativeHandle,
@@ -28,27 +29,27 @@ export const DatePickerView = observer(
     ) => {
       const datePickerContentRef = useRef<HTMLDivElement>(null)
       const inputRef = useRef<HTMLInputElement>(null)
-      const [contentStyle, setContentStyle] = useState({
-        display: 'none',
-      })
+      const [contentStyle, setContentStyle] = useState<CSSProperties>({})
 
       useImperativeHandle(ref, () => inputRef.current as HTMLInputElement, [])
 
-      const blurDatePicker = (e: MouseEvent) => {
+      function blurDatePicker(e: MouseEvent) {
         if (
           !datePickerContentRef.current?.parentNode?.contains(e.target as Node)
         ) {
           store.setPickerVisibility(false)
+        } else {
+          store.setPickerVisibility(true)
         }
       }
 
       reaction(
         () => store.pickerVisible,
         (visible) => {
-          setContentStyle((contentStyle) => ({
+          setContentStyle({
             ...contentStyle,
             display: visible ? 'block' : 'none',
-          }))
+          })
         }
       )
 
@@ -60,38 +61,39 @@ export const DatePickerView = observer(
       }, [])
 
       useEffect(() => {
+        let newStyle = { ...contentStyle, display: 'none' }
         const documentBodyWidth = document.body.clientWidth
         const { x, width } =
           datePickerContentRef.current!.getBoundingClientRect()
         if (x + width > documentBodyWidth) {
           const distanceFromLeft = documentBodyWidth - (x + width)
-          const newStyle = {
-            ...contentStyle,
+          newStyle = {
+            ...newStyle,
             left: distanceFromLeft,
           }
-          if (JSON.stringify(newStyle) !== JSON.stringify(contentStyle)) {
-            setContentStyle(newStyle)
-          }
         }
-      }, [contentStyle])
+        setContentStyle(newStyle)
+      }, [])
 
       return (
         <div className="date-picker" tabIndex={-1}>
-          <Form.Control
-            name="datepicker-input"
-            type="text"
-            className="date-picker__input"
-            onFocus={() => store.setPickerVisibility(true)}
-            placeholder={L.getInputPlaceholder()}
-            onKeyDown={(e) => mimicInputReadOnly(e)}
-            {...restProps}
-            ref={inputRef}
-            autoComplete="off"
-          />
-          <FaRegCalendarDays className="date-picker__input--icon" />
-          <Form.Control.Feedback type="invalid">
-            {errorInvalidDate}
-          </Form.Control.Feedback>
+          <div className="date-picker__inputContainer">
+            <Form.Control
+              name="datepicker-input"
+              type="text"
+              className="date-picker__input"
+              onFocus={() => store.setPickerVisibility(true)}
+              placeholder={L.getInputPlaceholder()}
+              onKeyDown={(e) => mimicInputReadOnly(e)}
+              {...restProps}
+              ref={inputRef}
+              autoComplete="off"
+            />
+            <FaRegCalendarDays className="date-picker__input--icon" />
+            <Form.Control.Feedback type="invalid">
+              {errorInvalidDate}
+            </Form.Control.Feedback>
+          </div>
           <div
             style={contentStyle}
             className="date-picker__content"
