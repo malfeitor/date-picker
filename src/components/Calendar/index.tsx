@@ -44,6 +44,14 @@ export const Calendar = observer(
       exit: (direction: number) => ({ x: -300 * direction }),
     }
 
+    const handleClick = (day: Day) => {
+      store.setNewDate(new Date(day.day))
+      store.setPickerVisibility(false)
+      if (isInputRef(inputRef)) {
+        inputRef.current.value = store.formatedDate
+      }
+    }
+
     return (
       <AnimatePresence initial={false} custom={animationDirection}>
         <motion.tbody
@@ -68,13 +76,7 @@ export const Calendar = observer(
                       ? 'date-picker__calendar--day'
                       : 'date-picker__calendar--filler'
                   }
-                  onClick={() => {
-                    store.setNewDate(new Date(day.day))
-                    store.setPickerVisibility(false)
-                    if (isInputRef(inputRef)) {
-                      inputRef.current.value = store.formatedDate
-                    }
-                  }}
+                  onClick={() => handleClick(day)}
                 >
                   {day.number}
                 </td>
