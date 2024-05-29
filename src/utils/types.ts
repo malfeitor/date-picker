@@ -23,6 +23,8 @@ export interface DatePickerViewProps {
   L: Locale
   minimumYear: number
   errorInvalidDate?: string
+  isValid?: boolean
+  isInvalid?: boolean
 }
 
 export interface DatePickerProps
@@ -32,4 +34,6 @@ export interface DatePickerProps
   language?: string
   minimumYear?: number
   errorInvalidDate?: string
+  isValid?: boolean
+  isInvalid?: boolean
 }
