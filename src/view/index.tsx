@@ -89,7 +89,13 @@ export const DatePickerView = observer(
               ref={inputRef}
               autoComplete="off"
             />
-            <FaRegCalendarDays className="date-picker__input--icon" />
+            <FaRegCalendarDays
+              className="date-picker__input--icon"
+              style={{
+                display:
+                  restProps?.isValid || restProps?.isInvalid ? 'none' : 'block',
+              }}
+            />
             <Form.Control.Feedback type="invalid">
               {errorInvalidDate}
             </Form.Control.Feedback>
