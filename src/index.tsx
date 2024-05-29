@@ -20,7 +20,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
     const L = new Locale({ language, weekStartingDay })
     const store = new Store()
     store.setFormat(format)
-    store.setWeekStartingDayIndex(L.getWeekStartingDayNumber())
+    store.setWeekStartingDay(L.getWeekStartingDayNumber())
     return (
       <DatePickerView
         ref={inputRef}

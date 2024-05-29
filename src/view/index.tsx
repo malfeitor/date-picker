@@ -44,7 +44,7 @@ export const DatePickerView = observer(
       }
 
       reaction(
-        () => store.pickerVisible,
+        () => store.visible,
         (visible) => {
           setContentStyle({
             ...contentStyle,

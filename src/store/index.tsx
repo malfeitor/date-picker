@@ -15,9 +15,8 @@ export class Store {
       formatedDate: computed,
       visible: observable,
       setPickerVisibility: action,
-      pickerVisible: computed,
       weekStartingDay: observable,
-      setWeekStartingDayIndex: action,
+      setWeekStartingDay: action,
       getDate: computed,
       setPreviousMonth: action,
       setNextMonth: action,
@@ -25,7 +24,7 @@ export class Store {
       setMonth: action,
       setYear: action,
       animationDirection: observable,
-      getAnimationDirection: computed,
+      setAnimationDirection: action,
     })
   }
 
@@ -41,9 +40,6 @@ export class Store {
   setPickerVisibility(visible: boolean) {
     this.visible = visible
   }
-  get pickerVisible() {
-    return this.visible
-  }
   setFormat(format: string) {
     const yearPosition = format.includes('YYYY')
     const monthPosition = format.includes('MM')
@@ -54,10 +50,7 @@ export class Store {
       console.error('Date format unknown')
     }
   }
-  get weekStartingDayIndex() {
-    return this.weekStartingDay
-  }
-  setWeekStartingDayIndex(index: number) {
+  setWeekStartingDay(index: number) {
     this.weekStartingDay = index
   }
   get getDate() {
@@ -97,17 +90,14 @@ export class Store {
       `${this.date.getFullYear()}-${this.date.getMonth() + 1}-01`
     )
     // week begin sunday, index 0
-    if (firstDayOfCalendar.getDay() === 0 && this.weekStartingDayIndex !== 0) {
-      firstDayOfCalendar.setDate(-(6 - this.weekStartingDayIndex))
+    if (firstDayOfCalendar.getDay() === 0 && this.weekStartingDay !== 0) {
+      firstDayOfCalendar.setDate(-(6 - this.weekStartingDay))
     } else {
       firstDayOfCalendar.setDate(
-        1 + this.weekStartingDayIndex - firstDayOfCalendar.getDay()
+        1 + this.weekStartingDay - firstDayOfCalendar.getDay()
       )
     }
     return firstDayOfCalendar
-  }
-  get getAnimationDirection() {
-    return this.animationDirection
   }
   setAnimationDirection(direction: number) {
     this.animationDirection = direction

@@ -36,7 +36,7 @@ export const Calendar = observer(
     }
     const firstDayOfCalendar = store.getFirstDayOfCalendar
     const currentMonth = createCalendarDays(firstDayOfCalendar)
-    const animationDirection = store.getAnimationDirection
+    const animationDirection = store.animationDirection
 
     const animationVariants = {
       enter: (direction: number) => ({ x: 300 * direction }),
