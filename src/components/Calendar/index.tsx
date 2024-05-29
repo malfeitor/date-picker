@@ -1,4 +1,4 @@
-import React, { LegacyRef } from 'react'
+import React, { LegacyRef, SyntheticEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { observer } from 'mobx-react-lite'
 import { Store } from '../../store'
@@ -44,7 +44,9 @@ export const Calendar = observer(
       exit: (direction: number) => ({ x: -300 * direction }),
     }
 
-    const handleClick = (day: Day) => {
+    const handleClick = (e: SyntheticEvent, day: Day) => {
+      e.preventDefault()
+      e.stopPropagation()
       store.setNewDate(new Date(day.day))
       store.setPickerVisibility(false)
       if (isInputRef(inputRef)) {
@@ -76,7 +78,7 @@ export const Calendar = observer(
                       ? 'date-picker__calendar--day'
                       : 'date-picker__calendar--filler'
                   }
-                  onClick={() => handleClick(day)}
+                  onClick={(e) => handleClick(e, day)}
                 >
                   {day.number}
                 </td>
