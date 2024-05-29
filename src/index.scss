@@ -2,6 +2,7 @@
   position: relative;
   &__content {
     position: absolute;
+    top: 26px;
     border: 1px solid #32a8fd;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(#000, 0.5);
@@ -11,14 +12,18 @@
   &__hidden {
     display: none;
   }
+  &__inputContainer {
+    position: 'relative';
+    width: '150px';
+  }
   &__input {
-    width: 150px;
+    width: 80%;
     margin: 0;
-    padding: 0 0 0 5px;
+    padding: 0 36px 0 5px;
     &--icon {
       position: absolute;
-      left: 70%;
-      top: 20%;
+      left: 158px;
+      top: 5px;
       pointer-events: none;
     }
   }
