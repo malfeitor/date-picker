@@ -39,7 +39,8 @@ export const DatePickerView = observer(
         ) {
           store.setPickerVisibility(false)
         } else {
-          // If we dont set it to true, MobX reactions will fail
+          /* If we dont set it to true, MobX reactions will fail
+            because i doesn't set picker visibility as observable for this function*/
           store.setPickerVisibility(true)
         }
       }
