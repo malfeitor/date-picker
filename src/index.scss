@@ -2,6 +2,7 @@
   position: relative;
   &__content {
     position: absolute;
+    z-index: 1;
     top: 26px;
     border: 1px solid #32a8fd;
     border-radius: 10px;
@@ -17,12 +18,13 @@
     width: '150px';
   }
   &__input {
-    width: 80%;
+    width: 100%;
     margin: 0;
     padding: 0 36px 0 5px;
+    z-index: 0;
     &--icon {
       position: absolute;
-      left: 158px;
+      right: 5px;
       top: 5px;
       pointer-events: none;
     }
