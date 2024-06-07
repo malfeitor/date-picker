@@ -11,7 +11,7 @@ import { DatePickerViewProps } from '../utils/types'
 import { Header } from '../components/Header'
 import { Calendar } from '../components/Calendar'
 import mimicInputReadOnly from '../utils/mimicInputReadOnly'
-import { Form } from 'react-bootstrap'
+import { Form, InputGroup } from 'react-bootstrap'
 import { reaction } from 'mobx'
 import { FaRegCalendarDays } from 'react-icons/fa6'
 
@@ -80,27 +80,25 @@ export const DatePickerView = observer(
       return (
         <div className="date-picker" tabIndex={-1}>
           <div className="date-picker__inputContainer">
-            <Form.Control
-              name="datepicker-input"
-              type="text"
-              className="date-picker__input"
-              onFocus={() => store.setPickerVisibility(true)}
-              placeholder={L.getInputPlaceholder()}
-              onKeyDown={(e) => mimicInputReadOnly(e)}
-              {...restProps}
-              ref={inputRef}
-              autoComplete="off"
-            />
-            <FaRegCalendarDays
-              className="date-picker__input--icon"
-              style={{
-                display:
-                  restProps?.isValid || restProps?.isInvalid ? 'none' : 'block',
-              }}
-            />
-            <Form.Control.Feedback type="invalid">
-              {errorInvalidDate}
-            </Form.Control.Feedback>
+            <InputGroup hasValidation>
+              <Form.Control
+                name="datepicker-input"
+                type="text"
+                className="date-picker__input"
+                onFocus={() => store.setPickerVisibility(true)}
+                placeholder={L.getInputPlaceholder()}
+                onKeyDown={(e) => mimicInputReadOnly(e)}
+                {...restProps}
+                ref={inputRef}
+                autoComplete="off"
+              />
+              <InputGroup.Text>
+                <FaRegCalendarDays className="date-picker__input--icon" />
+              </InputGroup.Text>
+              <Form.Control.Feedback type="invalid">
+                {errorInvalidDate}
+              </Form.Control.Feedback>
+            </InputGroup>
           </div>
           <div
             style={contentStyle}

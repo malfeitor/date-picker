@@ -14,8 +14,9 @@
     display: none;
   }
   &__inputContainer {
-    position: 'relative';
-    width: '150px';
+    position: relative;
+    display: flex;
+    flex-direction: row;
   }
   &__input {
     width: 100%;
@@ -23,9 +24,6 @@
     padding: 0 36px 0 5px;
     z-index: 0;
     &--icon {
-      position: absolute;
-      right: 5px;
-      top: 5px;
       pointer-events: none;
     }
   }
