@@ -41,6 +41,7 @@ export const Header = observer(({ store, minimumYear, L }: Props) => {
         onChange={(e) => store.setMonth(Number(e.target.value))}
         ref={monthRef}
         disabled={!store.visible}
+        aria-label="Select month"
       >
         {L.getAllMonthsNames().map((name: string, index: number) => {
           return (
@@ -57,6 +58,7 @@ export const Header = observer(({ store, minimumYear, L }: Props) => {
         onChange={(e) => store.setYear(Number(e.target.value))}
         ref={yearRef}
         disabled={!store.visible}
+        aria-label="Select year"
       >
         {[...Array(100)].map((_, index) => {
           return (
