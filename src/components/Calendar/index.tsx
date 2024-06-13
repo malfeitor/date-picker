@@ -54,6 +54,15 @@ export const Calendar = observer(
       }
     }
 
+    const onKeyDown = (
+      e: React.KeyboardEvent<HTMLTableCellElement>,
+      day: Day
+    ) => {
+      if (e.code === 'Enter' || e.code === 'Space') {
+        handleClick(e, day)
+      }
+    }
+
     return (
       <AnimatePresence initial={false} custom={animationDirection}>
         <motion.tbody
@@ -79,6 +88,8 @@ export const Calendar = observer(
                       : 'date-picker__calendar--filler'
                   }
                   onClick={(e) => handleClick(e, day)}
+                  onKeyDown={(e) => onKeyDown(e, day)}
+                  tabIndex={0}
                 >
                   {day.number}
                 </td>
