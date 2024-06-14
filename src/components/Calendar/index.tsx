@@ -37,6 +37,7 @@ export const Calendar = observer(
     const firstDayOfCalendar = store.getFirstDayOfCalendar
     const currentMonth = createCalendarDays(firstDayOfCalendar)
     const animationDirection = store.animationDirection
+    const weekStartingDay = store.weekStartingDay
 
     const animationVariants = {
       enter: (direction: number) => ({ x: 300 * direction }),
@@ -58,8 +59,29 @@ export const Calendar = observer(
       e: React.KeyboardEvent<HTMLTableCellElement>,
       day: Day
     ) => {
-      if (e.code === 'Enter' || e.code === 'Space') {
-        handleClick(e, day)
+      const target = e.target as HTMLTableCellElement
+      const date = new Date(day.day)
+      switch (e.code) {
+        case 'Enter':
+        case 'Space':
+          handleClick(e, day)
+          break
+        case 'ArrowRight':
+          target?.nextSibling?.focus()
+          break
+        case 'ArrowLeft':
+          target?.previousSibling?.focus()
+          break
+        case 'ArrowUp':
+          target?.parentElement?.previousSibling?.childNodes[
+            date.getDay() - weekStartingDay
+          ].focus()
+          break
+        case 'ArrowDown':
+          target?.parentElement?.nextSibling?.childNodes[
+            date.getDay() - weekStartingDay
+          ].focus()
+          break
       }
     }
 
