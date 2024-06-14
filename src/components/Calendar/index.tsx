@@ -5,6 +5,10 @@ import { Store } from '../../store'
 import { isInputRef } from '../../utils/types'
 import { Day } from '../../features/day'
 
+interface CalendarCell extends HTMLTableCellElement {
+  focus: () => void
+}
+
 export const Calendar = observer(
   ({
     store,
@@ -67,20 +71,27 @@ export const Calendar = observer(
           handleClick(e, day)
           break
         case 'ArrowRight':
-          target?.nextSibling?.focus()
+          ;(target?.nextSibling as CalendarCell).focus()
           break
         case 'ArrowLeft':
-          target?.previousSibling?.focus()
+          ;(target?.previousSibling as CalendarCell).focus()
           break
         case 'ArrowUp':
-          target?.parentElement?.previousSibling?.childNodes[
-            date.getDay() - weekStartingDay
-          ].focus()
+          ;(
+            target?.parentElement?.previousSibling?.childNodes[
+              date.getDay() - weekStartingDay
+            ] as CalendarCell
+          ).focus()
           break
         case 'ArrowDown':
-          target?.parentElement?.nextSibling?.childNodes[
-            date.getDay() - weekStartingDay
-          ].focus()
+          ;(
+            target?.parentElement?.nextSibling?.childNodes[
+              date.getDay() - weekStartingDay
+            ] as CalendarCell
+          ).focus()
+          break
+        case 'Escape':
+          store.setPickerVisibility(false)
           break
       }
     }
