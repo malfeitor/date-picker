@@ -33,9 +33,11 @@ export const DatePickerView = observer(
 
       useImperativeHandle(ref, () => inputRef.current as HTMLInputElement, [])
 
-      function blurDatePicker(e: MouseEvent) {
+      function blurDatePicker(e: Event) {
+        const target =
+          e.type === 'focusout' ? (e as FocusEvent).relatedTarget : e.target
         if (
-          !datePickerContentRef.current?.parentNode?.contains(e.target as Node)
+          !datePickerContentRef.current?.parentNode?.contains(target as Node)
         ) {
           store.setPickerVisibility(false)
         } else {
@@ -57,8 +59,16 @@ export const DatePickerView = observer(
 
       useEffect(() => {
         window.addEventListener('click', blurDatePicker)
+        datePickerContentRef.current?.parentNode?.addEventListener(
+          'focusout',
+          blurDatePicker
+        )
         return () => {
           window.removeEventListener('click', blurDatePicker)
+          datePickerContentRef.current?.parentNode?.removeEventListener(
+            'focusout',
+            blurDatePicker
+          )
         }
       }, [])
 
