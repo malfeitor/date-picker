@@ -71,24 +71,32 @@ export const Calendar = observer(
           handleClick(e, day)
           break
         case 'ArrowRight':
-          ;(target?.nextSibling as CalendarCell).focus()
+          try {
+            ;(target?.nextSibling as CalendarCell).focus()
+          } catch {}
           break
         case 'ArrowLeft':
-          ;(target?.previousSibling as CalendarCell).focus()
+          try {
+            ;(target?.previousSibling as CalendarCell).focus()
+          } catch {}
           break
         case 'ArrowUp':
-          ;(
-            target?.parentElement?.previousSibling?.childNodes[
-              date.getDay() - weekStartingDay
-            ] as CalendarCell
-          ).focus()
+          try {
+            ;(
+              target?.parentElement?.previousSibling?.childNodes[
+                date.getDay() - weekStartingDay
+              ] as CalendarCell
+            ).focus()
+          } catch {}
           break
         case 'ArrowDown':
-          ;(
-            target?.parentElement?.nextSibling?.childNodes[
-              date.getDay() - weekStartingDay
-            ] as CalendarCell
-          ).focus()
+          try {
+            ;(
+              target?.parentElement?.nextSibling?.childNodes[
+                date.getDay() - weekStartingDay
+              ] as CalendarCell
+            ).focus()
+          } catch {}
           break
         case 'Escape':
           store.setPickerVisibility(false)
